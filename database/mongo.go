@@ -2,12 +2,10 @@
 package database
 
 import (
+	"AddressListener/models"
 	"context"
 	"fmt"
-	"net/url"
-	"os"
 
-	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -33,24 +31,16 @@ func InitMongoDB() (*mongo.Client, error) {
 	return client, nil
 }
 
-func createUri(username string, password string, clusterUrl string) string {
+func Push2Mongo(client *mongo.Client, data models.WebhookData) error {
 
-	// Build MongoDB connection string dynamically
-	mongoURI := fmt.Sprintf("mongodb+srv://%s:%s@%s/?retryWrites=true&w=majority", username, password, clusterUrl)
-	return mongoURI
-}
+	database := client.Database("your_database_name2")
+	collection := database.Collection("your_collection_name")
 
-func formaEnvVariables(usernameString string, passwordString string, clusterUrlString string) error {
-	// Load environment variables from .env file
-	err := godotenv.Load()
+	// Insert the webhook data into MongoDB
+	_, err := collection.InsertOne(context.Background(), data)
 	if err != nil {
-		errString := "Error loading .env file : " + err.Error()
-		return fmt.Errorf(errString)
+		fmt.Errorf("Error inserting data into MongoDB: ", err)
+		return err
 	}
-
-	// Get MongoDB connection details from environment variables
-	username = url.QueryEscape(os.Getenv(usernameString))
-	password = url.QueryEscape(os.Getenv(passwordString))
-	clusterURL = os.Getenv(clusterUrlString)
 	return nil
 }

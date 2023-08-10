@@ -1,11 +1,10 @@
 package handlers
 
 import (
+	"AddressListener/database"
 	"AddressListener/models" // Update this to the correct package path
-	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -26,29 +25,12 @@ func WebhookHandler(client *mongo.Client) http.HandlerFunc {
 			return
 		}
 
-		database := client.Database("your_database_name2")
-		collection := database.Collection("your_collection_name")
-
 		// Insert the webhook data into MongoDB
-		_, err = collection.InsertOne(context.Background(), data)
+		err = database.Push2Mongo(client, data)
 		if err != nil {
-			log.Println("Error inserting data into MongoDB:", err)
 			http.Error(w, "Error inserting data into MongoDB", http.StatusInternalServerError)
 			return
 		}
-		// // Process the data
-		// fmt.Printf("Received webhook ID: %s\n", data.WebhookID)
-		// fmt.Printf("Received event type: %s\n", data.Type)
-		// fmt.Printf("Received event timestamp: %s\n", data.CreatedAt)
-		// fmt.Printf("Received event network: %s\n", data.Event.Network)
-
-		// for _, activity := range data.Event.Activity {
-		// 	fmt.Printf("Received activity block number: %s\n", activity.BlockNum)
-		// 	fmt.Printf("Received activity hash: %s\n", activity.Hash)
-		// 	fmt.Printf("Received activity from address: %s\n", activity.FromAddress)
-		// 	fmt.Printf("Received activity to address: %s\n", activity.ToAddress)
-		// 	// ... Print other activity details ...
-		// }
 
 		// Respond to the sender
 		w.WriteHeader(http.StatusOK)
