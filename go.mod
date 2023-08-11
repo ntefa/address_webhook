@@ -1,4 +1,4 @@
-module AddressListener
+module github.com/ntefa/address_webhook
 
 go 1.20
 

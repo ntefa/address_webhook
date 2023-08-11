@@ -15,7 +15,7 @@ func createUri(username string, password string, clusterUrl string) string {
 	return mongoURI
 }
 
-func formaEnvVariables(usernameString string, passwordString string, clusterUrlString string) error {
+func formatEnvVariables(usernameString string, passwordString string, clusterUrlString string, dbNameString string, collectionNameString string) error {
 	// Load environment variables from .env file
 	err := godotenv.Load()
 	if err != nil {
@@ -27,5 +27,7 @@ func formaEnvVariables(usernameString string, passwordString string, clusterUrlS
 	username = url.QueryEscape(os.Getenv(usernameString))
 	password = url.QueryEscape(os.Getenv(passwordString))
 	clusterURL = os.Getenv(clusterUrlString)
+	dbName = os.Getenv(dbNameString)
+	collectionName = os.Getenv(collectionNameString)
 	return nil
 }

@@ -1,11 +1,12 @@
 package handlers
 
 import (
-	"AddressListener/database"
-	"AddressListener/models" // Update this to the correct package path
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/ntefa/address_webhook/database"
+	"github.com/ntefa/address_webhook/models" // Update this to the correct package path
 
 	"go.mongodb.org/mongo-driver/mongo"
 )

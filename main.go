@@ -1,11 +1,12 @@
 package main
 
 import (
-	"AddressListener/database"
-	"AddressListener/handlers" // Update this to the correct package path
 	"context"
 	"fmt"
 	"net/http"
+
+	"github.com/ntefa/address_webhook/database"
+	"github.com/ntefa/address_webhook/handlers" // Update this to the correct package path
 
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -29,5 +30,5 @@ func main() {
 
 	// Start the server
 	fmt.Println("Server listening on :8080")
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", nil) //Note: ListenAndServe is a blocking call, if needed to receive on different ports make use of goroutines.
 }
