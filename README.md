@@ -47,13 +47,12 @@ Address Listener is a Go application that receives webhook data, processes it, a
 
 Configuration of the application is done through environment variables. Create a .env file in the root directory with the following content:
 
-    ```
+    ```bash
     USERNAME=your_mongodb_username
     PASSWORD=your_mongodb_password
     CLUSTER_URL=your_mongodb_cluster_url
     DBNAME = "DB_TEST"
     COLLECTIONNAME = "Collection_TEST"
-    ```
 
 ## Supported Webhook
 
