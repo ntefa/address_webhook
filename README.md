@@ -1,6 +1,6 @@
+#Address Listener
 
-
-Address Listener is a Go application that receives webhook data, processes it, and stores it in a MongoDB database. It provides an efficient way to handle incoming data from external sources and store it for further analysis.
+Address Listener is a Go application that receives webhook data about addresses activity in the blockchain, processes it, and stores it in a MongoDB database. It provides an efficient way to handle incoming data from external sources and store it for further analysis.
 
 ## Table of Contents
 
