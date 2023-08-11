@@ -4,14 +4,13 @@ Address Listener is a Go application that receives webhook data, processes it, a
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Supported Webhook](#supported-webhook)
 - [Adapting for Other Webhooks](#adapting-for-other-webhooks)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
@@ -26,3 +25,40 @@ Address Listener is a Go application that receives webhook data, processes it, a
    ```bash
    git clone https://github.com/yourusername/AddressListener.git
    cd AddressListener
+
+2. Build the docker image:
+
+    ```bash
+    docker build -t address-listener .
+
+## Usage
+
+1. Rename .env.example to .env and provide your MongoDB credentials and information.
+
+2. Start the application using Docker Compose:
+
+    ```bash
+    docker run -p 8080:8080 address-listener
+    
+
+3. The application will now be running and listening for incoming webhooks on port 8080.
+
+## Configuration
+
+Configuration of the application is done through environment variables. Create a .env file in the root directory with the following content:
+
+    ```
+    USERNAME=your_mongodb_username
+    PASSWORD=your_mongodb_password
+    CLUSTER_URL=your_mongodb_cluster_url
+    DBNAME = "DB_TEST"
+    COLLECTIONNAME = "Collection_TEST"
+    ```
+
+## Supported Webhook
+
+This webhook is specifically designed to handle the Address Activity Webhook from Alchemy (https://docs.alchemy.com/reference/address-activity-webhook). It processes data according to the provided data model and stores it in the MongoDB database.
+
+## Adapting for Other Webhooks
+
+To adapt this application for other webhooks, you'll need to modify the `models/data_model.go` file according to the data structure of the new webhook. Make sure to update the `WebhookData` struct to match the new payload format.
