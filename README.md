@@ -35,7 +35,7 @@ Address Listener is a Go application that receives webhook data, processes it, a
 
 1. Create an .env file with the instructions in Configuration.
 
-2. Start the application using Docker Compose:
+2. Start the application using Docker:
 
     ```bash
     docker run -p 8080:8080 address-listener
