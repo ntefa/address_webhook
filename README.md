@@ -33,7 +33,7 @@ Address Listener is a Go application that receives webhook data, processes it, a
 
 ## Usage
 
-1. Rename .env.example to .env and provide your MongoDB credentials and information.
+1. Create an .env file with the instructions in Configuration.
 
 2. Start the application using Docker Compose:
 
@@ -47,7 +47,6 @@ Address Listener is a Go application that receives webhook data, processes it, a
 
 Configuration of the application is done through environment variables. Create a .env file in the root directory with the following content:
 
-    ```bash
     USERNAME=your_mongodb_username
     PASSWORD=your_mongodb_password
     CLUSTER_URL=your_mongodb_cluster_url
