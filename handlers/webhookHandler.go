@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -33,7 +34,7 @@ func WebhookHandler(client *mongo.Client) http.HandlerFunc {
 			http.Error(w, "Error inserting data into MongoDB", http.StatusInternalServerError)
 			return
 		}
-		// sendDiscordNotification()
+		sendDiscordNotification()
 
 		// Respond to the sender
 		w.WriteHeader(http.StatusOK)
@@ -41,14 +42,14 @@ func WebhookHandler(client *mongo.Client) http.HandlerFunc {
 	}
 }
 
-// func sendDiscordNotification() {
-// 	webhookURL := "YOUR_DISCORD_WEBHOOK_URL"
-// 	notificationMessage := "New data received and processed!"
+func sendDiscordNotification() {
+	webhookURL := lib.WebhookUrl
+	notificationMessage := "New data received and processed!"
 
-// 	payload := map[string]interface{}{
-// 		"content": notificationMessage,
-// 	}
+	payload := map[string]interface{}{
+		"content": notificationMessage,
+	}
 
-// 	body, _ := json.Marshal(payload)
-// 	http.Post(webhookURL, "application/json", bytes.NewBuffer(body))
-// }
+	body, _ := json.Marshal(payload)
+	http.Post(webhookURL, "application/json", bytes.NewBuffer(body))
+}
