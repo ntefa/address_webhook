@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/ntefa/address_webhook/database"
+	lib "github.com/ntefa/address_webhook/lib"
 	"github.com/ntefa/address_webhook/models" // Update this to the correct package path
 
 	"go.mongodb.org/mongo-driver/mongo"
@@ -27,14 +28,27 @@ func WebhookHandler(client *mongo.Client) http.HandlerFunc {
 		}
 
 		// Insert the webhook data into MongoDB
-		err = database.Push2Mongo(client, data)
+		err = database.Push2Mongo(client, data, lib.DBName, lib.CollectionName)
 		if err != nil {
 			http.Error(w, "Error inserting data into MongoDB", http.StatusInternalServerError)
 			return
 		}
+		// sendDiscordNotification()
 
 		// Respond to the sender
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintln(w, "Webhook received and processed")
 	}
 }
+
+// func sendDiscordNotification() {
+// 	webhookURL := "YOUR_DISCORD_WEBHOOK_URL"
+// 	notificationMessage := "New data received and processed!"
+
+// 	payload := map[string]interface{}{
+// 		"content": notificationMessage,
+// 	}
+
+// 	body, _ := json.Marshal(payload)
+// 	http.Post(webhookURL, "application/json", bytes.NewBuffer(body))
+// }

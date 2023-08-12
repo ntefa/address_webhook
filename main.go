@@ -7,13 +7,15 @@ import (
 
 	"github.com/ntefa/address_webhook/database"
 	"github.com/ntefa/address_webhook/handlers" // Update this to the correct package path
-
+	"github.com/ntefa/address_webhook/lib"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 func main() {
 
-	client, err := database.InitMongoDB()
+	err := lib.FormatEnvVariables("USERNAME", "PASSWORD", "CLUSTER_URL", "DBNAME", "COLLECTIONNAME", "WEBHOOKURL")
+
+	client, err := database.InitMongoDB(lib.Username, lib.Password, lib.ClusterURL)
 	defer func() {
 		if err = client.Disconnect(context.TODO()); err != nil {
 			panic(err)
