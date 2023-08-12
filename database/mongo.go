@@ -6,24 +6,17 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/ntefa/address_webhook/lib"
 	"github.com/ntefa/address_webhook/models"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var username string
-var password string
-var clusterURL string
+func InitMongoDB(username string, password string, clusterURL string) (*mongo.Client, error) {
 
-var dbName string
-var collectionName string
-
-func InitMongoDB() (*mongo.Client, error) {
-	// Load environment variables from .env file
-	err := formatEnvVariables("USERNAME", "PASSWORD", "CLUSTER_URL", "DBNAME", "COLLECTIONNAME")
 	// Build MongoDB connection string dynamically
-	mongoURI := createUri(username, password, clusterURL)
+	mongoURI := lib.CreateUri(username, password, clusterURL)
 	// Use the SetServerAPIOptions() method to set the Stable API version to 1
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(mongoURI).SetServerAPIOptions(serverAPI)
@@ -36,7 +29,7 @@ func InitMongoDB() (*mongo.Client, error) {
 	return client, nil
 }
 
-func Push2Mongo(client *mongo.Client, data models.WebhookData) error {
+func Push2Mongo(client *mongo.Client, data models.WebhookData, dbName string, collectionName string) error {
 
 	database := client.Database(dbName)
 	collection := database.Collection(collectionName)
