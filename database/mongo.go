@@ -49,7 +49,7 @@ func Push2Mongo(client *mongo.Client, data models.WebhookData) error {
 	}
 
 	// Log a message after successful insertion
-	log.Printf("Inserted data into MongoDB: %+v", data)
+	log.Printf("Inserted data into MongoDB!")
 
 	return nil
 }

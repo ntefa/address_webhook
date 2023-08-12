@@ -16,7 +16,7 @@ Address Listener is a Go application that receives webhook data about addresses 
 ## Features
 
 - Receives webhook data and processes it in real-time.
-- Stores processed data in a MongoDB database.
+- Stores processed data in a MongoDB Atlas instance.
 - Provides a modular and organized code structure.
 
 ## Installation
@@ -40,7 +40,6 @@ Address Listener is a Go application that receives webhook data about addresses 
 
     ```bash
     docker run -p 8080:8080 address-listener
-    
 
 3. The application will now be running and listening for incoming webhooks on port 8080.
 

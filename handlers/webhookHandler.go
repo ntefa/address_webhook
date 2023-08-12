@@ -12,8 +12,8 @@ import (
 )
 
 func WebhookHandler(client *mongo.Client) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) { // Make sure the request method is POST
-		if r.Method != http.MethodPost {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost { // Make sure the request method is POST
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
